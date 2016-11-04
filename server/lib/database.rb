@@ -1,8 +1,12 @@
 # This file is provided to help connect to your database, in production, development
 # and in test.
 # DO NOT CHANGE THIS FILE
+# This is used to select which database to use.
+ENV['RACK_ENV'] ||= 'development'
+
 require 'yaml'
 require 'active_record'
+require 'pry'
 
 if ENV["DATABASE_URL"]
   ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])

@@ -1,5 +1,4 @@
-# This is used to select which database to use.
-ENV['RACK_ENV'] ||= 'development'
+
 
 require 'bundler/setup'
 require 'sinatra'
