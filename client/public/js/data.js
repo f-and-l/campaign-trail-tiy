@@ -16,23 +16,18 @@ function candidatePost(candidateValues){
   $.ajax({
     url: '/candidates',
     method: 'POST',
-    dataType: 'json',
-    data: {
-      name: candidateName,
-      image_url: avatarURL,
-      willpower: willPow,
-      charisma: charismaVal,
-      intelligence: intell
-    },
+    data: JSON.stringify({ name: candidateName,
+    image_url: avatarURL,
+    willpower: willPow,
+    charisma: charismaVal,
+    intelligence: intell
+    }),
     headers: {
       'Content-Type': 'application/json'
     }
   })
   .done( function handleSuccess(data){
     console.log(data);
-    // window.fee.candidate = {};
-    // window.fee.candidate.name = data.name;
-    // window.fee.candidate.avatarURL = data.avatarURL;
   })
   .fail( function handleError(xhr){
     console.log(xhr);
