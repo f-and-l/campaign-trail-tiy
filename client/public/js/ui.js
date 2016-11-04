@@ -12,7 +12,7 @@
       candidateValues.intelligence = $('#intel').val();
       candidateValues.willPow = $('#willpower').val();
       candidateValues.charisma = $('#charisma').val();
-      fee.candidatePost(candidateValues);
+      window.fee.candidatePost(candidateValues);
       console.log(candidateValues); // do stuff with var candidate
   });
 
