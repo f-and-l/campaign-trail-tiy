@@ -22,4 +22,17 @@ class AppTest < Minitest::Test
     assert_equal "Kvothe", hash_response[0]["name"]
     assert_equal 3, hash_response.size
   end
+
+  def test_can_create_candidate
+    payload = {
+      name: "Fela",
+      image_url: "google.com",
+      intelligence: 10
+    }
+
+    post "/candidates", payload.to_json
+    assert_equal 201, last_response.status
+    assert_equal "Fela", ::Candidate.last.name
+
+  end
 end
