@@ -29,10 +29,8 @@ class AppTest < Minitest::Test
       image_url: "google.com",
       intelligence: 10
     }
-
     post "/candidates", payload.to_json
     assert_equal 201, last_response.status
     assert_equal "Fela", ::Candidate.last.name
-
   end
 end
