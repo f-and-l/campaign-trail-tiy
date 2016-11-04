@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104141130) do
+ActiveRecord::Schema.define(version: 20161104154323) do
 
   create_table "campaigns", force: :cascade do |t|
     t.datetime "start_date"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20161104141130) do
     t.integer  "charisma"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "total_avail_points",        default: 10
   end
 
 end
