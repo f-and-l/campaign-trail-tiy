@@ -53,5 +53,11 @@ class AppTest < Minitest::Test
     assert_equal Date.today, ::Campaign.last.start_date
   end
 
+  def test_can_get_one_candidate
+    Candidate.create!(name: "Kvothe", image_url: "google.com")
+    get "/candidates/#{Candidate.last.id}"
+    assert_equal "Kvothe", JSON.parse(last_response.body)["name"]
+  end
+
 
 end
