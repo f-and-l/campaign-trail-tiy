@@ -2,9 +2,11 @@
   'use strict';
   window.fee = fee = (fee || {});
 
-  $('.createCandidate').on('click', function createCandidate(e){
+  $('.createCandidate').on('submit', function createCandidate(e){
       e.preventDefault();
-      var candidate = fee.candidatePost(); // do stuff with var candidate
+      
+      var candidate = fee.candidatePost();
+      console.log(candidate) // do stuff with var candidate
   });
 
 
