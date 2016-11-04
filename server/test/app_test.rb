@@ -116,4 +116,13 @@ class AppTest < Minitest::Test
     end
   end
 
+  def test_can_update_candidate
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    payload = {
+      intelligence: 8
+    }
+    patch "/candidates/#{devi.id}", payload.to_json
+    assert_equal 8, Candidate.find(devi.id).intelligence
+  end
+
 end

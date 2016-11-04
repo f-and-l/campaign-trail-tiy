@@ -112,7 +112,14 @@ class App < Sinatra::Base
 
   delete '/candidates/:id' do
     ::Candidate.find_by(id: params["id"]).destroy
-    
+  end
+
+  patch '/candidates/:id' do
+    input = request.body.read
+    input_hash = JSON.parse(input)
+    candidate = Candidate.find(params["id"])
+    candidate.update!(input_hash)
+    candidate.to_json
   end
 
   # If this file is run directly boot the webserver
