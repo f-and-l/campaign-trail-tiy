@@ -85,7 +85,11 @@ class App < Sinatra::Base
   post '/campaigns' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    campaign = ::Campaign.new(input_hash)
+    candidates_array = []
+    JSON.parse(input)["campaigns"].each do |id|
+      candidates_array << Candidate.find(id)
+    end
+    campaign = ::Campaign.new(start_date: input_hash["start_date"], candidates: candidates_array)
     if campaign.save
       status 201
       campaign.to_json
