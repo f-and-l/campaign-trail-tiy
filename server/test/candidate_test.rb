@@ -89,4 +89,11 @@ class CandidateTest < Minitest::Test
     end
   end
 
+  def test_candidate_gets_extra_points_for_winning
+    kvothe = Candidate.create!(name:"Kvothe",intelligence: 5, charisma: 2, willpower: 0, image_url: "google.com")
+    Campaign.create!(start_date: Date.today, winner: kvothe)
+    Campaign.create!(start_date: Date.tomorrow, winner: kvothe)
+    assert_equal 12, kvothe.total_available_points
+  end
+
 end

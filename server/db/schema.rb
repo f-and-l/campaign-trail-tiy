@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104163754) do
+ActiveRecord::Schema.define(version: 20161104180926) do
 
   create_table "campaigns", force: :cascade do |t|
-    t.datetime "start_date"
+    t.datetime "start_date", default: '2016-11-04 00:00:00'
     t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
