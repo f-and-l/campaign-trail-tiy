@@ -4,8 +4,9 @@ gem "sinatra"
 gem "activerecord"
 gem "rake"
 gem "puma" # Replacement for WEBrick
-gem "rerun" # Will reload sinatra if .rb files change. 
+gem "rerun" # Will reload sinatra if .rb files change.
 gem "sqlite3"
+gem "json"
 
 group :test do
   gem "pry"
