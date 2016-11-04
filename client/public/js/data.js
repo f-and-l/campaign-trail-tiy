@@ -15,11 +15,29 @@ function getCandidateList(){
   })
   .done( function handleSuccess(data){
     console.log(data);
+    window.fee.buildCandidateList(data);
   })
   .fail( function handleError(xhr){
     console.log(xhr);
   });
 };
+
+function deleteCandidate(idnum){
+  $.ajax({
+    url: '/candidates',
+    method: 'DELETE',
+    data: idnum,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done (function handleSuccess(data){
+    console.log(data);
+  })
+  .fail( function handleError(xhr){
+    console.log(xhr);
+  });
+}
 
 function candidatePost(candidateValues){
   var candidateName = candidateValues.name;
@@ -53,6 +71,7 @@ function candidatePost(candidateValues){
 
 
 window.fee.getCandidateList = getCandidateList;
+window.fee.deleteCandidate = deleteCandidate;
 window.fee.candidatePost = candidatePost;
 
 
