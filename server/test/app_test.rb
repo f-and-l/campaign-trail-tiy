@@ -50,7 +50,6 @@ class AppTest < Minitest::Test
     devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
     fela = Candidate.create!(name: "Fela", image_url: "google.com", intelligence: 8, charisma: 0, willpower: 0)
     payload = {
-      start_date: Date.today,
       candidates: [devi.id, fela.id]
     }
     post "/campaigns", payload.to_json
