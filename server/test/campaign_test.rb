@@ -25,4 +25,9 @@ class CampaignTest < Minitest::Test
     campaign = Campaign.new()
     refute campaign.save
   end
+
+  def test_campaign_has_winner
+    winner = Candidate.new(name: "Kvothe", image_url: "google.com")
+    campaign = Campaign.new(start_date: Date.today, winner_id)
+  end
 end

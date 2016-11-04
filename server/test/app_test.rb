@@ -43,4 +43,6 @@ class AppTest < Minitest::Test
     hash_response = JSON.parse(response.body)
     assert_equal "2016-11-04T00:00:00.000Z", hash_response[0]["start_date"]
   end
+
+  
 end

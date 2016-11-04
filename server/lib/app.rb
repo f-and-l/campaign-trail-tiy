@@ -26,11 +26,6 @@ class App < Sinatra::Base
     body File.read(File.join(settings.public_folder, 'index.html'))
   end
 
-  # You can delete this route but you should nest your endpoints under /api
-  get '/api' do
-    { msg: 'The server is running' }.to_json
-  end
-
   get '/candidates' do
     ::Candidate.all.to_json
   end
