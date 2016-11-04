@@ -35,6 +35,10 @@ class App < Sinatra::Base
     ::Candidate.all.to_json
   end
 
+  get '/campaigns' do
+    ::Campaign.all.to_json
+  end
+
   post '/candidates' do
     input = request.body.read
     input_hash = JSON.parse(input)
