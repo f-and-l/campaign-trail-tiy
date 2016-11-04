@@ -59,5 +59,10 @@ class AppTest < Minitest::Test
     assert_equal "Kvothe", JSON.parse(last_response.body)["name"]
   end
 
+  def test_404_for_candidate_not_found
+    get "candidates/#{Candidate.last.id + 1}"
+    assert_equal 404, last_response.status
+    assert_equal "Candidate #{Candidate.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
 
 end
