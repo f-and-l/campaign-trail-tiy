@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  window.fee = fee = (fee || {});
+  window.fee = window.fee || {};
+
+  console.log('wassup');
 
   $('.createCandidate').on('submit', function createCandidate(e){
       e.preventDefault();
@@ -10,8 +12,8 @@
       candidateValues.intelligence = $('#intel').val();
       candidateValues.willPow = $('#willpower').val();
       candidateValues.charisma = $('#charisma').val();
-      var candidate = fee.candidatePost(candidateValues);
-      console.log(candidate) // do stuff with var candidate
+      fee.candidatePost(candidateValues);
+      console.log(candidateValues); // do stuff with var candidate
   });
 
 

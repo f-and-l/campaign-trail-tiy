@@ -1,11 +1,18 @@
 (function() {
   'use strict';
-  window.fee = fee = (fee || {});
+  window.fee = window.fee || {};
+
+  console.log('wasssup dude');
 
 
 function candidatePost(candidateValues){
-  candidateValues.name = candidateName;
-  console.log(candidateName);
+  var candidateName = candidateValues.name;
+  var avatarURL = candidateValues.avatar;
+  var intell = candidateValues.intelligence;
+  var willPow =  candidateValues.willPow;
+  var charismaVal = candidateValues.charisma;
+
+  console.log(candidateName, avatarURL, willPow, charismaVal, intell);
   $.ajax({
     url: '/candidates',
     method: 'POST',
@@ -17,12 +24,15 @@ function candidatePost(candidateValues){
       charisma: charismaVal,
       intelligence: intell
     },
-    headers {
+    headers: {
       'Content-Type': 'application/json'
     }
   })
   .done( function handleSuccess(data){
     console.log(data);
+    // window.fee.candidate = {};
+    // window.fee.candidate.name = data.name;
+    // window.fee.candidate.avatarURL = data.avatarURL;
   })
   .fail( function handleError(xhr){
     console.log(xhr);
