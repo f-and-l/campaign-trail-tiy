@@ -20,4 +20,9 @@ class CampaignTest < Minitest::Test
     Campaign.create!(start_date: today)
     assert_equal today, Campaign.last.start_date
   end
+
+  def test_campaign_must_have_start_date
+    campaign = Campaign.new()
+    refute campaign.save
+  end
 end

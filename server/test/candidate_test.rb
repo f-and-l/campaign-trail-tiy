@@ -24,4 +24,6 @@ class CandidateTest < Minitest::Test
     kvothe = Candidate.new(name: "Kvothe", intelligence: 10)
     refute kvothe.save
   end
+
+
 end
