@@ -17,4 +17,8 @@ class Candidate < ActiveRecord::Base
     self.winners.size
   end
 
+  def total_campaigns_competed
+    self.campaigns.size
+  end
+
 end

@@ -19,7 +19,6 @@ class CandidateTest < Minitest::Test
     kvothe = Candidate.new(name: "Kvothe", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
     assert kvothe.save
     assert_equal "Kvothe", Candidate.last.name
-    assert_equal 0, kvothe.number_campaigns_won
 
   end
 
@@ -52,5 +51,28 @@ class CandidateTest < Minitest::Test
     assert_equal [camp1], kvothe.winners
   end
 
+  def test_candidate_total_campaigns_competed
+    camp1 = Campaign.new(start_date: Date.today)
+    camp2 = Campaign.new(start_date: Date.tomorrow)
+    kvothe = Candidate.new(name:"Kvothe",intelligence: 10, charisma: 0, willpower: 0, image_url: "google.com")
+    kvothe.campaigns = [camp1, camp2]
+    assert_equal 2, kvothe.total_campaigns_competed
+  end
+
+  def test_candidate_total_campaigns_won
+    camp1 = Campaign.new(start_date: Date.today)
+    camp2 = Campaign.new(start_date: Date.tomorrow)
+    kvothe = Candidate.new(name:"Kvothe",intelligence: 10, charisma: 0, willpower: 0, image_url: "google.com")
+    kvothe.campaigns = [camp1, camp2]
+    camp1.winner = kvothe
+    camp2.winner = kvothe
+    kvothe.save!
+    assert_equal 2, kvothe.total_campaigns_won
+  end
+
+  def test_total_delegated_points
+    kvothe = Candidate.create!(name:"Kvothe",intelligence: 5, charisma: 2, willpower: 0, image_url: "google.com")
+    assert_equal 7, kvothe.total_delegated_points
+  end
 
 end
