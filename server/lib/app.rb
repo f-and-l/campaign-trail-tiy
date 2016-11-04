@@ -5,6 +5,7 @@ require 'sinatra'
 require 'json'
 
 require_relative 'database'
+require_relative '../dependencies'
 
 class App < Sinatra::Base
   # Serve any HTML/CSS/JS from the client folder
@@ -28,6 +29,32 @@ class App < Sinatra::Base
   # You can delete this route but you should nest your endpoints under /api
   get '/api' do
     { msg: 'The server is running' }.to_json
+  end
+
+  get '/candidates' do
+    ::Candidate.all.to_json
+  end
+
+  get '/campaigns' do
+    ::Campaign.all.to_json
+  end
+
+  post '/candidates' do
+    input = request.body.read
+    input_hash = JSON.parse(input)
+    candidate = ::Candidate.new(input_hash)
+    if candidate.save
+      status 201
+      candidate.to_json
+    else
+      status 422
+      {
+        errors: {
+          full_messages: candidate.errors.full_messages,
+          messages: candidate.errors.messages
+        }
+      }.to_json
+    end
   end
 
   # If this file is run directly boot the webserver
