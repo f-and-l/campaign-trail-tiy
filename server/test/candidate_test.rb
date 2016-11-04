@@ -75,4 +75,18 @@ class CandidateTest < Minitest::Test
     assert_equal 7, kvothe.total_delegated_points
   end
 
+  def test_cant_exceed_total_points_available
+    kvothe = Candidate.create!(name:"Kvothe",intelligence: 5, charisma: 2, willpower: 0, image_url: "google.com")
+    assert_raises do
+      kvothe.update!(willpower: 5)
+    end
+  end
+
+  def test_cant_exceed_total_points_available_intelligence
+    kvothe = Candidate.create!(name:"Kvothe",intelligence: 5, charisma: 2, willpower: 0, image_url: "google.com")
+    assert_raises do
+      kvothe.update!(intelligence: 10)
+    end
+  end
+
 end
