@@ -6,29 +6,32 @@
 
         <link href='css/style.css' rel='stylesheet' type='text/css'>
     </head>
+
     <body>
 
         <header>
             <h1>Fear and Loathing On the Campaign Trail</h1>
+            <nav>
+                <ul>
+                  <li><a class='show-candidate-list' href='#'>List of Candidates</a></li>
+                  <li><a class='create-candidate' href='#'>Create Candidate</a></li>
+                  <li><a class='create-campaign' href='#'>Create Campaign</a></li>
+                  <li><a class='see-old-campaigns' href='#'>See Old Campaigns</a></li>
+                    <!-- what other nav do we need? -->
+                    <!-- how can we make a specific section below visible? HINT: look at the _nav.scss file! -->
+                </ul>
+            </nav>
         </header>
 
-        <nav>
-            <ul>
-                <li><a class='show-???-list' href='#'>Show List of [WHAT?]</a></li>
-                <!-- what other nav do we need? -->
-                <!-- how can we make a specific section below visible? HINT: look at the _nav.scss file! -->
-            </ul>
-        </nav>
-
         <main>
-            <section class='list-of-???'>
-                <h2>List of [WHAT?]</h2>
+            <section class='list-of-candidates'>
+                <h2>List of candidates</h2>
                 <ul></ul>
             </section>
 
             <!-- what other sections do we need? -->
 
-            <section class='create-a-???'>
+            <section class='create-a-candidate'>
                 <h2>Create a New Candidate</h2>
                 <form class='createCandidate'>
                     <aside>
@@ -51,14 +54,33 @@
                         <label for='willpower'>Willpower</label>
                         <input type='number' id='willpower' name='Willpower' min='0' max='10' value='0'>
                     </aside>
-
-                    <!-- What else do we need? -->
-
                     <aside>
                         <input type='submit' value='Create Candidate'>
                     </aside>
                 </form>
             </section>
+
+            <section class='create-a-campaign'>
+                <h2>Create a Campaign</h2>
+                <form class='campaignCanOne'>
+                    <label for='candDropOne'>Pick A Candidate</label>
+                    <select id='canDropOne' name='canDropOne'>
+                        <option value='null'>Select Candidate</option>
+                    </select>
+                </form>
+                <form class='campaignCanTwo'>
+                    <label for='canDropTwo'>Pick A Second Candidate</label>
+                    <select id='canDropTwo' name='canDropTwo'>
+                        <option value='null'>Select Candidate</option>
+                    </select>
+                </form>
+            </section>
+
+            <section class='campaign-list'>
+                <h2>Campaign History</h2>
+                <ul></ul>
+            </section>
+
 
         </main>
 
