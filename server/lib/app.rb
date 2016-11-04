@@ -26,17 +26,32 @@ class App < Sinatra::Base
     body File.read(File.join(settings.public_folder, 'index.html'))
   end
 
-  # You can delete this route but you should nest your endpoints under /api
-  get '/api' do
-    { msg: 'The server is running' }.to_json
-  end
-
   get '/candidates' do
     ::Candidate.all.to_json
   end
 
+  get '/candidates/:id' do
+    candidate = ::Candidate.find_by(id: params["id"])
+    if candidate
+      candidate.to_json
+    else
+      status 404
+      {message: "Candidate #{params["id"]} not found!"}.to_json
+    end
+  end
+
   get '/campaigns' do
     ::Campaign.all.to_json
+  end
+
+  get '/campaigns/:id' do
+    campaign = ::Campaign.find_by(id: params["id"])
+    if campaign
+      campaign.to_json
+    else
+      status 404
+      {message: "Campaign #{params["id"]} not found!"}.to_json
+    end
   end
 
   post '/candidates' do
@@ -46,6 +61,24 @@ class App < Sinatra::Base
     if candidate.save
       status 201
       candidate.to_json
+    else
+      status 422
+      {
+        errors: {
+          full_messages: candidate.errors.full_messages,
+          messages: candidate.errors.messages
+        }
+      }.to_json
+    end
+  end
+
+  post '/campaigns' do
+    input = request.body.read
+    input_hash = JSON.parse(input)
+    campaign = ::Campaign.new(input_hash)
+    if campaign.save
+      status 201
+      campaign.to_json
     else
       status 422
       {
