@@ -49,12 +49,24 @@ class AppTest < Minitest::Test
     fela = Candidate.create!(name: "Fela", image_url: "google.com")
     payload = {
       start_date: Date.today,
-      campaigns: [devi.id, fela.id]
+      candidates: [devi.id, fela.id]
     }
     post "/campaigns", payload.to_json
     assert_equal 201, last_response.status
     assert_equal Date.today, ::Campaign.last.start_date
     assert_equal [devi, fela], ::Campaign.last.candidates
+  end
+
+  def test_creating_campaign_with_unknown_candidates_returns_404
+    Candidate.create!(name: "Devi", image_url: "google.com")
+    Candidate.create!(name: "Fela", image_url: "google.com")
+    payload = {
+      start_date: Date.today,
+      candidates: [Candidate.last.id + 1, Candidate.last.id + 2]
+    }
+    post "/campaigns", payload.to_json
+    assert_equal 404, last_response.status
+    assert_equal "Candidate(s) [1676, 1677] not found!", JSON.parse(last_response.body)["message"]
   end
 
   def test_can_get_one_candidate

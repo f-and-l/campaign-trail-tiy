@@ -86,19 +86,25 @@ class App < Sinatra::Base
     input = request.body.read
     input_hash = JSON.parse(input)
     candidates_array = []
-    JSON.parse(input)["campaigns"].each do |id|
-      candidates_array << Candidate.find(id)
+    candidates_id_array = []
+    input_hash["candidates"].each do |id|
+      candidates_array << Candidate.find_by(id: id) if Candidate.find_by(id: id)
+      candidates_id_array << Candidate.find_by(id: id).id if Candidate.find_by(id: id)
     end
     campaign = ::Campaign.new(start_date: input_hash["start_date"], candidates: candidates_array)
-    if campaign.save
+    if campaign.save && candidates_array.size == input_hash["candidates"].size
       status 201
       campaign.to_json
+    elsif candidates_array.size != input_hash["candidates"].size
+      status 404
+      not_found = input_hash["candidates"] - candidates_id_array
+      {message: "Candidate(s) #{not_found} not found!"}.to_json
     else
       status 422
       {
         errors: {
-          full_messages: candidate.errors.full_messages,
-          messages: candidate.errors.messages
+          full_messages: campaign.errors.full_messages,
+          messages: campaign.errors.messages
         }
       }.to_json
     end
