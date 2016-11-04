@@ -48,7 +48,7 @@ class AppTest < Minitest::Test
 
   def test_can_create_campaign_with_relevant_candidates
     devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
-    fela = Candidate.create!(name: "Fela", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    fela = Candidate.create!(name: "Fela", image_url: "google.com", intelligence: 8, charisma: 0, willpower: 0)
     payload = {
       start_date: Date.today,
       candidates: [devi.id, fela.id]
@@ -57,6 +57,7 @@ class AppTest < Minitest::Test
     assert_equal 201, last_response.status
     assert_equal Date.today, ::Campaign.last.start_date
     assert_equal [devi, fela], ::Campaign.last.candidates
+    assert_equal devi, ::Campaign.last.winner
   end
 
   def test_creating_campaign_with_unknown_candidates_returns_404

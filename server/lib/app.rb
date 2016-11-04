@@ -93,6 +93,7 @@ class App < Sinatra::Base
     end
     campaign = ::Campaign.new(start_date: input_hash["start_date"], candidates: candidates_array)
     if campaign.save && candidates_array.size == input_hash["candidates"].size
+      campaign.assign_winner!
       status 201
       campaign.to_json
     elsif candidates_array.size != input_hash["candidates"].size
