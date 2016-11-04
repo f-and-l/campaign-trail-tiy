@@ -78,4 +78,15 @@ class AppTest < Minitest::Test
     assert_equal "Campaign #{Campaign.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
   end
 
+  def test_can_get_all_campaigns_belonging_to_candidate
+    camp1 = Campaign.create!(start_date: Date.yesterday)
+    camp2 = Campaign.create!(start_date: Date.today)
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", campaigns: [camp1, camp2])
+    get "/candidates/#{devi.id}/campaigns"
+    assert last_response.ok?
+    assert_equal 2, JSON.parse(last_response.body).size
+    assert_equal camp1.id, JSON.parse(last_response.body)[0]["id"]
+    assert_equal camp2.id, JSON.parse(last_response.body)[1]["id"]
+  end
+
 end

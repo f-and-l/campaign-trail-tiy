@@ -44,6 +44,16 @@ class App < Sinatra::Base
     ::Campaign.all.to_json
   end
 
+  get "/candidates/:id/campaigns" do
+    candidate = ::Candidate.find_by(id: params["id"])
+    if candidate
+      candidate.campaigns.to_json
+    else
+      status 404
+      {message: "Candidate #{params["id"]} not found!"}.to_json
+    end
+  end
+
   get '/campaigns/:id' do
     campaign = ::Campaign.find_by(id: params["id"])
     if campaign
