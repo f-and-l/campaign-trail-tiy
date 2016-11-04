@@ -1,4 +1,5 @@
 require 'active_record'
+require 'json'
 require_relative 'lib/campaign'
 require_relative 'lib/candidate'
 require_relative 'lib/database'

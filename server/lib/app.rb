@@ -30,6 +30,11 @@ class App < Sinatra::Base
     { msg: 'The server is running' }.to_json
   end
 
+  get '/candidates' do
+    
+    ::Candidate.all.to_json
+  end
+
   # If this file is run directly boot the webserver
   run! if app_file == $PROGRAM_NAME
 end
