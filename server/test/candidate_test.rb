@@ -8,6 +8,7 @@ class CandidateTest < Minitest::Test
 
   def setup
     Candidate.delete_all
+    Campaign.delete_all
   end
 
   def test_class_exists
@@ -23,6 +24,15 @@ class CandidateTest < Minitest::Test
   def test_candidate_name_required
     kvothe = Candidate.new(name: "Kvothe", intelligence: 10)
     refute kvothe.save
+  end
+
+  def test_candidate_belongs_to_many_campaigns
+    camp1 = Campaign.new(start_date: Date.today)
+    camp2 = Campaign.new(start_date: Date.today)
+    kvothe = Candidate.new(name: "Kvothe", image_url: "google.com")
+    kvothe.campaigns << camp1
+    kvothe.campaigns << camp2
+    assert_equal [camp1, camp2], kvothe.campaigns
   end
 
 

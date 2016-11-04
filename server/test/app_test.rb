@@ -44,5 +44,14 @@ class AppTest < Minitest::Test
     assert_equal "2016-11-04T00:00:00.000Z", hash_response[0]["start_date"]
   end
 
-  
+  def test_can_create_campaign
+    payload = {
+      start_date: Date.today
+    }
+    post "/campaigns", payload.to_json
+    assert_equal 201, last_response.status
+    assert_equal Date.today, ::Campaign.last.start_date
+  end
+
+
 end

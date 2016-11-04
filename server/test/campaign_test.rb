@@ -28,6 +28,16 @@ class CampaignTest < Minitest::Test
 
   def test_campaign_has_winner
     winner = Candidate.new(name: "Kvothe", image_url: "google.com")
-    campaign = Campaign.new(start_date: Date.today, winner_id)
+    campaign = Campaign.new(start_date: Date.today, winner: winner)
+    assert_equal winner, campaign.winner
+  end
+
+  def test_campaign_has_many_candidates
+    campaign = Campaign.new(start_date: Date.today)
+    kvothe = Candidate.new(name: "Kvothe", image_url: "google.com")
+    fela = Candidate.new(name: "Fela", image_url: "google.com")
+    campaign.candidates << kvothe
+    campaign.candidates << fela
+    assert_equal [kvothe, fela], campaign.candidates
   end
 end

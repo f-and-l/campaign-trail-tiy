@@ -52,6 +52,24 @@ class App < Sinatra::Base
     end
   end
 
+  post '/campaigns' do
+    input = request.body.read
+    input_hash = JSON.parse(input)
+    campaign = ::Campaign.new(input_hash)
+    if campaign.save
+      status 201
+      campaign.to_json
+    else
+      status 422
+      {
+        errors: {
+          full_messages: candidate.errors.full_messages,
+          messages: candidate.errors.messages
+        }
+      }.to_json
+    end
+  end
+
   # If this file is run directly boot the webserver
   run! if app_file == $PROGRAM_NAME
 end
