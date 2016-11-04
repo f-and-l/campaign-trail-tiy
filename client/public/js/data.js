@@ -24,9 +24,8 @@ function getCandidateList(){
 
 function deleteCandidate(idnum){
   $.ajax({
-    url: '/candidates',
+    url: '/candidates/' + idnum,
     method: 'DELETE',
-    data: idnum,
     headers: {
       'Content-Type': 'application/json'
     }
