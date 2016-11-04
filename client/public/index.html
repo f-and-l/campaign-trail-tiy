@@ -9,7 +9,7 @@
     <body>
 
         <header>
-            <h1>[APP NAME HERE]</h1>
+            <h1>Fear and Loathing On the Campaign Trail</h1>
         </header>
 
         <nav>
@@ -29,23 +29,41 @@
             <!-- what other sections do we need? -->
 
             <section class='create-a-???'>
-                <h2>Create a New [WHAT?]</h2>
-                <form>
+                <h2>Create a New Candidate</h2>
+                <form class='createCandidate'>
                     <aside>
                         <label for='new-name'>Name</label>
-                        <input type='text' id='name' name='name' required>
+                        <input type='text' id='new-name' name='name' required>
+                    </aside>
+                    <aside>
+                        <label for='new-avatar'>Avatar</label>
+                        <input type='url' id='new-avatar' name='avatar' required>
+                    </aside>
+                    <aside>
+                        <label for='intel'>Intelligence</label>
+                        <input type='number' id='intel' name='Intelligence' min='0' max='10' value='0'>
+                    </aside>
+                    <aside>
+                        <label for='charisma'>Charisma</label>
+                        <input type='number' id='charisma' name='Charisma' min='0' max='10' value='0'>
+                    </aside>
+                    <aside>
+                        <label for='willpower'>Willpower</label>
+                        <input type='number' id='willpower' name='Willpower' min='0' max='10' value='0'>
                     </aside>
 
                     <!-- What else do we need? -->
 
                     <aside>
-                        <input type='submit' value='Create [WHAT?]'>
+                        <input type='submit' value='Create Candidate'>
                     </aside>
                 </form>
             </section>
 
         </main>
 
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/ui.js"></script>
     </body>
 </html>
