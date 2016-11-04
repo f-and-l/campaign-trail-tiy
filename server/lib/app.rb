@@ -91,7 +91,7 @@ class App < Sinatra::Base
       candidates_array << Candidate.find_by(id: id) if Candidate.find_by(id: id)
       candidates_id_array << Candidate.find_by(id: id).id if Candidate.find_by(id: id)
     end
-    campaign = ::Campaign.new(start_date: input_hash["start_date"], candidates: candidates_array)
+    campaign = ::Campaign.new(start_date: input_hash["start_date"] || Date.today, candidates: candidates_array)
     if campaign.save && candidates_array.size == input_hash["candidates"].size
       campaign.assign_winner!
       status 201
