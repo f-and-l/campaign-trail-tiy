@@ -3,7 +3,9 @@
   window.fee = fee = (fee || {});
 
 
-function candidatePost(){
+function candidatePost(candidateValues){
+  candidateValues.name = candidateName;
+  console.log(candidateName);
   $.ajax({
     url: '/candidates',
     method: 'POST',
@@ -12,7 +14,8 @@ function candidatePost(){
       name: candidateName,
       image_url: avatarURL,
       willpower: willPow,
-      charisma: charismaVal
+      charisma: charismaVal,
+      intelligence: intell
     },
     headers {
       'Content-Type': 'application/json'
