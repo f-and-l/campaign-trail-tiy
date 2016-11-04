@@ -44,6 +44,16 @@ class App < Sinatra::Base
     ::Campaign.all.to_json
   end
 
+  get '/campaigns/:id' do
+    campaign = ::Campaign.find_by(id: params["id"])
+    if campaign
+      campaign.to_json
+    else
+      status 404
+      {message: "Campaign #{params["id"]} not found!"}.to_json
+    end
+  end
+
   post '/candidates' do
     input = request.body.read
     input_hash = JSON.parse(input)

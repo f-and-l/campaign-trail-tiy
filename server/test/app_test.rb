@@ -60,9 +60,22 @@ class AppTest < Minitest::Test
   end
 
   def test_404_for_candidate_not_found
-    get "candidates/#{Candidate.last.id + 1}"
+    get "/candidates/#{Candidate.last.id + 1}"
     assert_equal 404, last_response.status
     assert_equal "Candidate #{Candidate.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
+
+  def test_get_one_campaign
+    Campaign.create!(start_date: Date.today)
+    get "/campaigns/#{Campaign.last.id}"
+    assert_equal "2016-11-04T00:00:00.000Z", JSON.parse(last_response.body)["start_date"]
+  end
+
+  def test_404_for_campaign_not_found
+    Campaign.create!(start_date: Date.today)
+    get "/campaigns/#{Campaign.last.id + 1}"
+    assert_equal 404, last_response.status
+    assert_equal "Campaign #{Campaign.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
   end
 
 end
