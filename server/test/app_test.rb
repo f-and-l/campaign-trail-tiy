@@ -107,4 +107,13 @@ class AppTest < Minitest::Test
     assert_equal camp2.id, JSON.parse(last_response.body)[1]["id"]
   end
 
+  def test_can_delete_candidate
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    delete "/candidates/#{devi.id}"
+    assert last_response.ok?
+    assert_raises do
+      Candidate.find(devi.id)
+    end
+  end
+
 end

@@ -110,6 +110,11 @@ class App < Sinatra::Base
     end
   end
 
+  delete '/candidates/:id' do
+    ::Candidate.find_by(id: params["id"]).destroy
+    
+  end
+
   # If this file is run directly boot the webserver
   run! if app_file == $PROGRAM_NAME
 end

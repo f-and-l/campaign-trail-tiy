@@ -19,11 +19,12 @@ class CandidateTest < Minitest::Test
     kvothe = Candidate.new(name: "Kvothe", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
     assert kvothe.save
     assert_equal "Kvothe", Candidate.last.name
+    assert_equal 0, kvothe.number_campaigns_won
 
   end
 
   def test_candidate_name_required
-    kvothe = Candidate.new(name: "Kvothe", intelligence: 10, charisma: 0, willpower: 0)
+    kvothe = Candidate.new( intelligence: 10, charisma: 0, willpower: 0, image_url: "google.com")
     refute kvothe.save
   end
 
@@ -37,8 +38,18 @@ class CandidateTest < Minitest::Test
   end
 
   def test_candidate_attribute_must_be_0_to_10
-    candidate = Candidate.new(name:"Kvothe",intelligence: 11, charisma: 0, willpower: 0)
+    candidate = Candidate.new(name:"Kvothe",intelligence: 11, charisma: 0, willpower: 0, image_url: "google.com")
     refute candidate.save
+  end
+
+  def test_candidate_can_win_campaign
+    camp1 = Campaign.new(start_date: Date.today)
+    kvothe = Candidate.new(name:"Kvothe",intelligence: 10, charisma: 0, willpower: 0, image_url: "google.com")
+    camp1.winner = kvothe
+    camp1.save!
+    kvothe.save!
+    assert_equal kvothe.id, camp1.winner_id
+    assert_equal [camp1], kvothe.winners
   end
 
 
