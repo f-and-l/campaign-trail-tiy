@@ -65,9 +65,27 @@ function candidatePost(candidateValues){
   });
 };
 
+function campaignPost(ids){
+  // $.ajax({
+  //   url: '/campaigns/'
+  //   method: 'POST',
+  //   data: JSON.stringify({ candidates: []}),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  // .done (function handleSuccess(data){
+  //   console.log(data);
+  // })
+  // .fail( function handleError(xhr){
+  //   console.log(xhr);
+  // });
+
+}
 
 
 
+window.fee.campaignPost = campaignPost;
 window.fee.getCandidateList = getCandidateList;
 window.fee.deleteCandidate = deleteCandidate;
 window.fee.candidatePost = candidatePost;

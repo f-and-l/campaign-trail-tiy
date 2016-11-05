@@ -67,6 +67,17 @@
     });
   };
 
+  $('.startCampaign').on('click', function postCampaign(){
+    ///////working here////////////
+    //need to create object with ids to collect on data side and post///
+    //
+
+    ///
+    //
+    //
+    window.fee.campaignPost();
+  });
+
   window.fee.createCampaignMenus =  createCampaignMenus;
 window.fee.buildCandidateList = buildCandidateList;
 
