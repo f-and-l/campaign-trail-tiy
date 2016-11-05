@@ -21,11 +21,6 @@ class CampaignTest < Minitest::Test
     assert_equal today, Campaign.last.start_date
   end
 
-  def test_campaign_must_have_start_date
-    campaign = Campaign.new()
-    refute campaign.save
-  end
-
   def test_campaign_has_winner
     winner = Candidate.new(name: "Kvothe", image_url: "google.com")
     campaign = Campaign.new(start_date: Date.today, winner: winner)
