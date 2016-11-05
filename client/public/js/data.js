@@ -42,6 +42,12 @@ function updateCandidate(idnum){
   $.ajax({
     url: '/candidates/id',
     method: 'PATCH',
+    data: JSON.stringify({ name: candidateName,
+      image_url: avatarURL,
+      willpower: willPow,
+      charisma: charismaVal,
+      intelligence: intell
+      }),
     headers: {
       'Content-Type': 'application/json'
     }
