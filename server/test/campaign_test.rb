@@ -38,12 +38,18 @@ class CampaignTest < Minitest::Test
 
   def test_campaign_set_winner
     campaign = Campaign.create!(start_date: Date.today)
-    cand1 = Candidate.create!(name: "Cand1", image_url: "google.com", intelligence: 5, charisma: 4, willpower: 1)
-    cand2 = Candidate.create!(name: "Cand2", image_url: "google.com", intelligence: 4, charisma: 2, willpower: 4)
-    cand3 = Candidate.create!(name: "Cand2", image_url: "google.com", intelligence: 1, charisma: 1, willpower: 8)
+    cand1 = Candidate.create!(name: "Cand1", image_url: "google.com", intelligence: 2, charisma: 4, willpower: 1)
+    cand2 = Candidate.create!(name: "Cand2", image_url: "google.com", intelligence: 4, charisma: 5, willpower: 1)
+    cand3 = Candidate.create!(name: "Cand3", image_url: "google.com", intelligence: 3, charisma: 3, willpower: 4)
     campaign.candidates = [cand1, cand2, cand3]
     campaign.save!
-    campaign.assign_winner!
-    assert_equal cand1, campaign.winner
+    winners = []
+    50.times do
+      campaign.assign_winner!
+      winners << campaign.winner.name
+    end
+    assert_equal "Cand2", winners.max_by{ |i| winners.count(i) }
+    assert winners.index("Cand1")
+    assert winners.index("Cand2")
   end
 end
