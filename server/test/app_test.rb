@@ -140,4 +140,32 @@ class AppTest < Minitest::Test
     assert_equal "Frenchy", Candidate.last.name
   end
 
+  def test_destroy_candidate_that_doesnt_exist_404
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    delete "/candidates/#{Candidate.last.id + 1}"
+    assert_equal 404, last_response.status
+    assert_equal "Candidate #{devi.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
+
+  def test_patch_non_existing_candidate_404
+    Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    payload = {
+      name: "Frenchy"
+    }
+    patch "/candidates/#{Candidate.last.id + 1}", payload.to_json
+    assert_equal 404, last_response.status
+    assert_equal "Candidate #{Candidate.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
+
+  def test_patch_candidate_with_bad_keys
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    payload = {
+      name: "Frenchy",
+      song: "Changes"
+    }
+    patch "/candidates/#{Candidate.last.id}", payload.to_json
+    assert last_response.ok?
+    assert_equal "Frenchy", Candidate.find_by(id: devi.id).name
+  end
+
 end

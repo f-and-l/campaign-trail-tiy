@@ -112,15 +112,26 @@ class App < Sinatra::Base
   end
 
   delete '/candidates/:id' do
-    ::Candidate.find_by(id: params["id"]).destroy
+    if ::Candidate.find_by(id: params["id"])
+      ::Candidate.find_by(id: params["id"]).destroy
+    else
+      status 404
+      { message: "Candidate #{params["id"]} not found!" }.to_json
+    end
   end
 
   patch '/candidates/:id' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    candidate = Candidate.find(params["id"])
-    candidate.update!(input_hash)
-    candidate.to_json
+    input_params = input_hash.select{ |k,v| (input_hash.keys & Candidate.attribute_names).find_index(k) }
+    candidate = Candidate.find_by(id: params["id"])
+    if candidate
+      candidate.update!(input_params)
+      candidate.to_json
+    else
+      status 404
+      { message: "Candidate #{params["id"]} not found!" }.to_json
+    end
   end
 
   # If this file is run directly boot the webserver
