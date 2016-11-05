@@ -16,5 +16,7 @@
       console.log(candidateValues); // do stuff with var candidate
   });
 
-
+  $('.create-a-campaign').on('click', function createCampaign(){
+    
+  });
 }());
