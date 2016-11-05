@@ -17,6 +17,7 @@
             '<img src="' + candidate.image_url + '">' +
              candidate.name +
              '<button>Delete</button>' +
+             '<button>Update</button>' +
           '</li>'
         );
     })
@@ -28,6 +29,11 @@
       //window.fee.getCandidateList();
       window.fee.deleteCandidate(id);
     } );
+
+  $('.update-attribute')
+    .on('click', 'li button', function updateCandidate(e) {
+      console.log(e);
+    } )
 
   $('.createCandidate').on('submit', function createCandidate(e){
       e.preventDefault();

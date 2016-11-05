@@ -33,9 +33,25 @@ function deleteCandidate(idnum){
   .done (function handleSuccess(data){
     console.log(data);
   })
-  .fail( function handleError(xhr){
+  .fail (function handleError(xhr){
     console.log(xhr);
   });
+}
+
+function updateCandidate(idnum){
+  $.ajax({
+    url: '/candidates/id',
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done (function handleSuccess(data) {
+    console.log(data);
+  })
+  .fail (function handleError(xhr) {
+    console.log(xhr);
+  })
 }
 
 function candidatePost(candidateValues){
@@ -50,11 +66,11 @@ function candidatePost(candidateValues){
     url: '/candidates',
     method: 'POST',
     data: JSON.stringify({ name: candidateName,
-    image_url: avatarURL,
-    willpower: willPow,
-    charisma: charismaVal,
-    intelligence: intell
-    }),
+      image_url: avatarURL,
+      willpower: willPow,
+      charisma: charismaVal,
+      intelligence: intell
+      }),
     headers: {
       'Content-Type': 'application/json'
     }
