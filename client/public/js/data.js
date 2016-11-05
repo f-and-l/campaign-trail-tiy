@@ -2,8 +2,6 @@
   'use strict';
   window.fee = window.fee || {};
 
-  console.log('wasssup dude');
-
 function getCandidateList(){
   $.ajax({
     url: '/candidates',
@@ -14,8 +12,8 @@ function getCandidateList(){
     }
   })
   .done( function handleSuccess(data){
-    console.log(data);
     window.fee.buildCandidateList(data);
+    window.fee.createCampaignMenus(data);
   })
   .fail( function handleError(xhr){
     console.log(xhr);
@@ -67,7 +65,7 @@ function candidatePost(candidateValues){
   });
 };
 
- 
+
 
 
 window.fee.getCandidateList = getCandidateList;
