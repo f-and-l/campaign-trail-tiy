@@ -4,6 +4,39 @@
 
   console.log('wasssup dude');
 
+function getCandidateList(){
+  $.ajax({
+    url: '/candidates',
+    method: 'GET',
+    dataType: 'json',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done( function handleSuccess(data){
+    console.log(data);
+    window.fee.buildCandidateList(data);
+  })
+  .fail( function handleError(xhr){
+    console.log(xhr);
+  });
+};
+
+function deleteCandidate(idnum){
+  $.ajax({
+    url: '/candidates/' + idnum,
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done (function handleSuccess(data){
+    console.log(data);
+  })
+  .fail( function handleError(xhr){
+    console.log(xhr);
+  });
+}
 
 function candidatePost(candidateValues){
   var candidateName = candidateValues.name;
@@ -37,8 +70,9 @@ function candidatePost(candidateValues){
  
 
 
-
-fee.candidatePost = candidatePost;
+window.fee.getCandidateList = getCandidateList;
+window.fee.deleteCandidate = deleteCandidate;
+window.fee.candidatePost = candidatePost;
 
 
 }());

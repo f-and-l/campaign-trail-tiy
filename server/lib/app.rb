@@ -44,6 +44,16 @@ class App < Sinatra::Base
     ::Campaign.all.to_json
   end
 
+  get "/candidates/:id/campaigns" do
+    candidate = ::Candidate.find_by(id: params["id"])
+    if candidate
+      candidate.campaigns.to_json
+    else
+      status 404
+      {message: "Candidate #{params["id"]} not found!"}.to_json
+    end
+  end
+
   get '/campaigns/:id' do
     campaign = ::Campaign.find_by(id: params["id"])
     if campaign
@@ -75,19 +85,42 @@ class App < Sinatra::Base
   post '/campaigns' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    campaign = ::Campaign.new(input_hash)
-    if campaign.save
+    candidates_array = []
+    candidates_id_array = []
+    input_hash["candidates"].each do |id|
+      candidates_array << Candidate.find_by(id: id) if Candidate.find_by(id: id)
+      candidates_id_array << Candidate.find_by(id: id).id if Candidate.find_by(id: id)
+    end
+    campaign = ::Campaign.new(start_date: input_hash["start_date"] || Date.today, candidates: candidates_array)
+    if campaign.save && candidates_array.size == input_hash["candidates"].size
+      campaign.assign_winner!
       status 201
       campaign.to_json
+    elsif candidates_array.size != input_hash["candidates"].size
+      status 404
+      not_found = input_hash["candidates"] - candidates_id_array
+      {message: "Candidate(s) #{not_found} not found!"}.to_json
     else
       status 422
       {
         errors: {
-          full_messages: candidate.errors.full_messages,
-          messages: candidate.errors.messages
+          full_messages: campaign.errors.full_messages,
+          messages: campaign.errors.messages
         }
       }.to_json
     end
+  end
+
+  delete '/candidates/:id' do
+    ::Candidate.find_by(id: params["id"]).destroy
+  end
+
+  patch '/candidates/:id' do
+    input = request.body.read
+    input_hash = JSON.parse(input)
+    candidate = Candidate.find(params["id"])
+    candidate.update!(input_hash)
+    candidate.to_json
   end
 
   # If this file is run directly boot the webserver

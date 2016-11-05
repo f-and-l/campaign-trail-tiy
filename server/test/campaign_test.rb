@@ -40,4 +40,15 @@ class CampaignTest < Minitest::Test
     campaign.candidates << fela
     assert_equal [kvothe, fela], campaign.candidates
   end
+
+  def test_campaign_set_winner
+    campaign = Campaign.create!(start_date: Date.today)
+    cand1 = Candidate.create!(name: "Cand1", image_url: "google.com", intelligence: 5, charisma: 4, willpower: 1)
+    cand2 = Candidate.create!(name: "Cand2", image_url: "google.com", intelligence: 4, charisma: 2, willpower: 4)
+    cand3 = Candidate.create!(name: "Cand2", image_url: "google.com", intelligence: 1, charisma: 1, willpower: 8)
+    campaign.candidates = [cand1, cand2, cand3]
+    campaign.save!
+    campaign.assign_winner!
+    assert_equal cand1, campaign.winner
+  end
 end
