@@ -8,6 +8,7 @@
   });
 
   function buildCandidateList(data) {
+    $('.list-of-candidates ul').children().remove();
     data.forEach(function addCandidateToUl(candidate){
       $('.list-of-candidates ul')
         .append(
