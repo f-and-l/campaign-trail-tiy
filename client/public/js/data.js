@@ -39,25 +39,25 @@ function deleteCandidate(idnum){
 
 function updateCandidate(candidateUpdate){
   console.log(candidateUpdate);
-  // $.ajax({
-  //   url: '/candidates/id',
-  //   method: 'PATCH',
-  //   data: JSON.stringify({ name: candidateName,
-  //     image_url: avatarURL,
-  //     willpower: willPow,
-  //     charisma: charismaVal,
-  //     intelligence: intell
-  //     }),
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
-  // })
-  // .done (function handleSuccess() {
-  //   console.log();
-  // })
-  // .fail (function handleError(xhr) {
-  //   console.log(xhr);
-  // })
+  $.ajax({
+    url: '/candidates/' + candidateUpdate.id,
+    method: 'PATCH',
+    data: JSON.stringify({ name: candidateUpdate.name,
+      image_url: candidateUpdate.avatar,
+      willpower: candidateUpdate.willPow,
+      charisma: candidateUpdate.charisma,
+      intelligence: candidateUpdate.intelligence
+      }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done (function handleSuccess(data) {
+    console.log(data);
+  })
+  .fail (function handleError(xhr) {
+    console.log(xhr);
+  })
 }
 
 function candidatePost(candidateValues){

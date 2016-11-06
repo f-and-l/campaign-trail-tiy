@@ -5,6 +5,7 @@
   $('.list-of-candidates').hide();
   $('.create-a-campaign').hide();
   $('.campaign-list').hide();
+  $('.updateAttributes').hide();
   $('.create-a-candidate').show();
 
 
@@ -47,7 +48,17 @@
 
  $('.list-of-candidates ul')
     .on('click', 'li .updateAtrCandidate', function updateCandidate(e) {
-      console.log(candidateUpdate);
+      $('.updateAttributes').show();
+      $('.update-attribute').show();
+      $('.updateMessage').remove();
+      $('#update-name').val('');
+      $('#update-avatar').val('');
+      $('#update-intel').val('0');
+      $('#update-willpower').val('0');
+      $('#update-charisma').val('0');
+      var id = ($(this).parent().attr('data-id'));
+      window.fee.updateCan=id;
+      console.log(id);
     } );
 
 $('.update-attribute')
@@ -59,7 +70,10 @@ $('.update-attribute')
         candidateUpdate.intelligence = $('#update-intel').val();
         candidateUpdate.willPow = $('#update-willpower').val();
         candidateUpdate.charisma = $('#update-charisma').val();
-        candidateUpdate.id = ($(this).parent().attr('data-id'));
+        candidateUpdate.id = window.fee.updateCan;
+        $('.updateMessage').remove();
+        $('.update-attribute').hide();
+        $('.updateAttributes').append('<p class="updateMessage">Thank you your candidate has been updated</p>');
         window.fee.updateCandidate(candidateUpdate);
       })
 
