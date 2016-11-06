@@ -66,20 +66,25 @@ function candidatePost(candidateValues){
 };
 
 function campaignPost(ids){
-  // $.ajax({
-  //   url: '/campaigns/'
-  //   method: 'POST',
-  //   data: JSON.stringify({ candidates: []}),
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
+  // var canArray = [];
+  // ids.each( function arrayPush(){
+  //   ids[i].push().
   // })
-  // .done (function handleSuccess(data){
-  //   console.log(data);
-  // })
-  // .fail( function handleError(xhr){
-  //   console.log(xhr);
-  // });
+  $.ajax({
+    url: '/campaigns/',
+    method: 'POST',
+    dataType: 'json',
+    data : { candidates: [ ids.canOneID, ids.canTwoID ]},
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done (function handleSuccess(data){
+    console.log(data);
+  })
+  .fail( function handleError(xhr){
+    console.log(xhr);
+  });
 
 }
 

@@ -53,29 +53,24 @@
       .siblings().remove();
     data.forEach( function candidatesMenuOne(candidate){
       $('.create-a-campaign')
-      .find('.campaignCanOne')
        .find('#canDropOne').append(
         '<option value="' + candidate.id + '">' +
         candidate.name + '</option>' );
     });
    data.forEach( function candidatesMenuTwo(candidate){
      $('.create-a-campaign')
-     .find('.campaignCanTwo')
       .find('#canDropTwo').append(
        '<option value="' + candidate.id + '">' +
        candidate.name + '</option>' );
     });
   };
 
-  $('.startCampaign').on('click', function postCampaign(){
-    ///////working here////////////
-    //need to create object with ids to collect on data side and post///
-    //
-
-    ///
-    //
-    //
-    window.fee.campaignPost();
+  $('.campaignStart').on('submit', function postCampaign(e){
+    e.preventDefault();
+    var canIDS = {};
+    canIDS.canOneID = $('#canDropOne').val();
+    canIDS.canTwoID = $('#canDropTwo').val();
+    window.fee.campaignPost(canIDS);
   });
 
   window.fee.createCampaignMenus =  createCampaignMenus;
