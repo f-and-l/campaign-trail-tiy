@@ -25,17 +25,26 @@
   $('.list-of-candidates ul')
     .on('click', 'li .deleteThisCandidate', function deleteACandidate(e){
       var id = ($(this).parent().attr('data-id'));
-      //window.fee.getCandidateList();
       window.fee.deleteCandidate(id);
     } );
 
  $('.list-of-candidates ul')
     .on('click', 'li .updateAtrCandidate', function updateCandidate(e) {
-      var updateName = $('#update-name');
-      console.log(updateName, "please work");
-      // var id = ($(this).parent().attr('data-id'));
-      // window.fee.updateCandidate(id);
-    } )
+      console.log('Hello!');
+    } );
+
+$('.update-attribute')
+      .on('submit', function updateAttrivute(e) {
+        e.preventDefault();
+        var candidateUpdate = {};
+        candidateUpdate.name = $('#update-name').val();
+        candidateUpdate.avatar= $('#update-avatar').val();
+        candidateUpdate.intelligence = $('#update-intel').val();
+        candidateUpdate.willPow = $('#update-willpower').val();
+        candidateUpdate.charisma = $('#update-charisma').val();
+        candidateUpdate.id = ($(this).parent().attr('data-id'));
+        window.fee.updateCandidate(candidateUpdate);
+      })
 
   $('.createCandidate').on('submit', function createCandidate(e){
       e.preventDefault();
@@ -50,5 +59,6 @@
   });
 
 window.fee.buildCandidateList = buildCandidateList;
+
 
 }());

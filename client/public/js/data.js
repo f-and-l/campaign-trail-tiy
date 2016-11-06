@@ -14,7 +14,6 @@ function getCandidateList(){
     }
   })
   .done( function handleSuccess(data){
-    console.log(data);
     window.fee.buildCandidateList(data);
   })
   .fail( function handleError(xhr){
@@ -38,26 +37,27 @@ function deleteCandidate(idnum){
   });
 }
 
-function updateCandidate(idnum){
-  $.ajax({
-    url: '/candidates/id',
-    method: 'PATCH',
-    data: JSON.stringify({ name: candidateName,
-      image_url: avatarURL,
-      willpower: willPow,
-      charisma: charismaVal,
-      intelligence: intell
-      }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .done (function handleSuccess(data) {
-    console.log(data);
-  })
-  .fail (function handleError(xhr) {
-    console.log(xhr);
-  })
+function updateCandidate(candidateUpdate){
+  console.log(candidateUpdate);
+  // $.ajax({
+  //   url: '/candidates/id',
+  //   method: 'PATCH',
+  //   data: JSON.stringify({ name: candidateName,
+  //     image_url: avatarURL,
+  //     willpower: willPow,
+  //     charisma: charismaVal,
+  //     intelligence: intell
+  //     }),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  // .done (function handleSuccess() {
+  //   console.log();
+  // })
+  // .fail (function handleError(xhr) {
+  //   console.log(xhr);
+  // })
 }
 
 function candidatePost(candidateValues){
@@ -94,6 +94,7 @@ function candidatePost(candidateValues){
 window.fee.getCandidateList = getCandidateList;
 window.fee.deleteCandidate = deleteCandidate;
 window.fee.candidatePost = candidatePost;
+window.fee.updateCandidate = updateCandidate;
 
 
 }());
