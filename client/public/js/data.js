@@ -12,6 +12,7 @@ function getCandidateList(){
     }
   })
   .done( function handleSuccess(data){
+    window.fee.currentCandidates = data;
     window.fee.buildCandidateList(data);
     window.fee.createCampaignMenus(data);
   })
@@ -80,7 +81,8 @@ function campaignPost(ids){
     }
   })
   .done (function handleSuccess(data){
-    console.log(data);
+    console.log(data.winner_id);
+    window.fee.appendWinnerInfo(data.winner_id);
   })
   .fail( function handleError(xhr){
     console.log(xhr);

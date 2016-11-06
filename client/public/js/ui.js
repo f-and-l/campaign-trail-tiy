@@ -73,8 +73,19 @@
     window.fee.campaignPost(canIDS);
   });
 
+  function appendWinnerInfo(id){
+    window.fee.currentCandidates.forEach( function matchID(candidate){
+      console.log(id);
+      if (candidate.id === id) {
+        $('.create-a-campaign').append('<p>The winner is ' + candidate.name);
+      }
+    })
+  };
+
+
+  window.fee.appendWinnerInfo = appendWinnerInfo;
   window.fee.createCampaignMenus =  createCampaignMenus;
-window.fee.buildCandidateList = buildCandidateList;
+  window.fee.buildCandidateList = buildCandidateList;
 
 
 }());
