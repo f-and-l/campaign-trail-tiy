@@ -71,10 +71,10 @@ function campaignPost(ids){
   //   ids[i].push().
   // })
   $.ajax({
-    url: '/campaigns/',
+    url: '/campaigns',
     method: 'POST',
     dataType: 'json',
-    data : { candidates: [ ids.canOneID, ids.canTwoID ]},
+    data : JSON.stringify({ candidates: [ ids.canOneID, ids.canTwoID ]}),
     headers: {
       'Content-Type': 'application/json'
     }
