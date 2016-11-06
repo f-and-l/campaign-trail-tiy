@@ -14,6 +14,7 @@
     $('.create-a-campaign').hide();
     $('.campaign-list').hide();
     $('.create-a-candidate').hide();
+    $('.updateAttributes').hide();
     window.fee.getCandidateList();
   });
 
@@ -37,7 +38,7 @@
     $('.list-of-candidates').hide();
     $('.create-a-campaign').hide();
     $('.campaign-list').hide();
-
+    $('.updateAttributes').hide();
   });
 
   $('.list-of-candidates ul')
@@ -95,6 +96,7 @@ $('.update-attribute')
     $('.list-of-candidates').hide();
     $('.campaign-list').hide();
     $('.create-a-candidate').hide();
+    $('.updateAttributes').hide();
     window.fee.getCandidateList();
   });
 
@@ -135,6 +137,15 @@ $('.update-attribute')
       }
     })
   };
+
+  $('.see-old-campaigns').on('click', function createCampaignPage(){
+    $('.campaign-list').show();
+    $('.create-a-candidate').hide();
+    $('.list-of-candidates').hide();
+    $('.create-a-campaign').hide();
+    $('.updateAttributes').hide();
+    window.fee.getCampaignList();
+  });
 
 
   window.fee.appendWinnerInfo = appendWinnerInfo;

@@ -12,6 +12,7 @@ function getCandidateList(){
     }
   })
   .done( function handleSuccess(data){
+    console.log(data);
     window.fee.currentCandidates = data;
     window.fee.buildCandidateList(data);
     window.fee.createCampaignMenus(data);
@@ -35,7 +36,7 @@ function deleteCandidate(idnum){
   .fail (function handleError(xhr){
     console.log(xhr);
   });
-}
+};
 
 function updateCandidate(candidateUpdate){
   console.log(candidateUpdate);
@@ -58,7 +59,7 @@ function updateCandidate(candidateUpdate){
   .fail (function handleError(xhr) {
     console.log(xhr);
   })
-}
+};
 
 function candidatePost(candidateValues){
   $.ajax({
@@ -83,10 +84,6 @@ function candidatePost(candidateValues){
 };
 
 function campaignPost(ids){
-  // var canArray = [];
-  // ids.each( function arrayPush(){
-  //   ids[i].push().
-  // })
   $.ajax({
     url: '/campaigns',
     method: 'POST',
@@ -104,7 +101,25 @@ function campaignPost(ids){
     console.log(xhr);
   });
 
-}
+};
+
+function getCampaignList(){
+  $.ajax({
+    url: '/campaigns',
+    method: 'GET',
+    dataType: 'json',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .done( function handleSuccess(data){
+    console.log(data);;
+  })
+  .fail( function handleError(xhr){
+    console.log(xhr);
+  });
+};
+
 
 
 
@@ -113,6 +128,7 @@ window.fee.getCandidateList = getCandidateList;
 window.fee.deleteCandidate = deleteCandidate;
 window.fee.candidatePost = candidatePost;
 window.fee.updateCandidate = updateCandidate;
+window.fee.getCampaignList = getCampaignList;
 
 
 }());
