@@ -67,7 +67,8 @@ class App < Sinatra::Base
   post '/candidates' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    candidate = ::Candidate.new(input_hash)
+    input_params = input_hash.select{ |k,v| (input_hash.keys & Candidate.attribute_names).find_index(k) }
+    candidate = ::Candidate.new(input_params)
     if candidate.save
       status 201
       candidate.to_json
@@ -85,20 +86,19 @@ class App < Sinatra::Base
   post '/campaigns' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    candidates_array = []
-    candidates_id_array = []
+    candidates = []
+    candidates_ids = []
     input_hash["candidates"].each do |id|
-      candidates_array << Candidate.find_by(id: id) if Candidate.find_by(id: id)
-      candidates_id_array << Candidate.find_by(id: id).id if Candidate.find_by(id: id)
+      candidates << Candidate.find_by(id: id) && candidates_ids << id if Candidate.find_by(id: id)
     end
-    campaign = ::Campaign.new(start_date: input_hash["start_date"] || Date.today, candidates: candidates_array)
-    if campaign.save && candidates_array.size == input_hash["candidates"].size
+    campaign = ::Campaign.new(start_date: input_hash["start_date"] || Date.today, candidates: candidates)
+    if campaign.save && candidates.size == input_hash["candidates"].size
       campaign.assign_winner!
       status 201
       campaign.to_json
-    elsif candidates_array.size != input_hash["candidates"].size
+    elsif candidates.size != input_hash["candidates"].size
       status 404
-      not_found = input_hash["candidates"] - candidates_id_array
+      not_found = input_hash["candidates"] - candidates_ids
       {message: "Candidate(s) #{not_found} not found!"}.to_json
     else
       status 422
@@ -112,15 +112,26 @@ class App < Sinatra::Base
   end
 
   delete '/candidates/:id' do
-    ::Candidate.find_by(id: params["id"]).destroy
+    if ::Candidate.find_by(id: params["id"])
+      ::Candidate.find_by(id: params["id"]).destroy
+    else
+      status 404
+      { message: "Candidate #{params["id"]} not found!" }.to_json
+    end
   end
 
   patch '/candidates/:id' do
     input = request.body.read
     input_hash = JSON.parse(input)
-    candidate = Candidate.find(params["id"])
-    candidate.update!(input_hash)
-    candidate.to_json
+    input_params = input_hash.select{ |k,v| (input_hash.keys & Candidate.attribute_names).find_index(k) }
+    candidate = Candidate.find_by(id: params["id"])
+    if candidate
+      candidate.update!(input_params)
+      candidate.to_json
+    else
+      status 404
+      { message: "Candidate #{params["id"]} not found!" }.to_json
+    end
   end
 
   # If this file is run directly boot the webserver

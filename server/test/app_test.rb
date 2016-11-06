@@ -43,7 +43,7 @@ class AppTest < Minitest::Test
     response = get "/campaigns"
     assert response.ok?
     hash_response = JSON.parse(response.body)
-    assert_equal "2016-11-04T00:00:00.000Z", hash_response[0]["start_date"]
+    assert_equal Date.today, hash_response[0]["start_date"].to_datetime
   end
 
   def test_can_create_campaign_with_relevant_candidates
@@ -86,7 +86,7 @@ class AppTest < Minitest::Test
   def test_get_one_campaign
     Campaign.create!(start_date: Date.today)
     get "/campaigns/#{Campaign.last.id}"
-    assert_equal "2016-11-04T00:00:00.000Z", JSON.parse(last_response.body)["start_date"]
+    assert_equal Date.today, (JSON.parse(last_response.body)["start_date"]).to_datetime
   end
 
   def test_404_for_campaign_not_found
@@ -123,6 +123,49 @@ class AppTest < Minitest::Test
     }
     patch "/candidates/#{devi.id}", payload.to_json
     assert_equal 8, Candidate.find(devi.id).intelligence
+  end
+
+  def test_post_candidate_ignores_bad_keys
+    payload = {
+      name: "Frenchy",
+      image_url: "google.com",
+      intelligence: 10,
+      charisma: 0,
+      willpower: 0,
+      bogus: 55,
+      other_stuff: "hello"
+    }
+    post "/candidates", payload.to_json
+    assert_equal 201, last_response.status
+    assert_equal "Frenchy", Candidate.last.name
+  end
+
+  def test_destroy_candidate_that_doesnt_exist_404
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    delete "/candidates/#{Candidate.last.id + 1}"
+    assert_equal 404, last_response.status
+    assert_equal "Candidate #{devi.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
+
+  def test_patch_non_existing_candidate_404
+    Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    payload = {
+      name: "Frenchy"
+    }
+    patch "/candidates/#{Candidate.last.id + 1}", payload.to_json
+    assert_equal 404, last_response.status
+    assert_equal "Candidate #{Candidate.last.id + 1} not found!", JSON.parse(last_response.body)["message"]
+  end
+
+  def test_patch_candidate_with_bad_keys
+    devi = Candidate.create!(name: "Devi", image_url: "google.com", intelligence: 10, charisma: 0, willpower: 0)
+    payload = {
+      name: "Frenchy",
+      song: "Changes"
+    }
+    patch "/candidates/#{Candidate.last.id}", payload.to_json
+    assert last_response.ok?
+    assert_equal "Frenchy", Candidate.find_by(id: devi.id).name
   end
 
 end
