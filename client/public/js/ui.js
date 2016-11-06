@@ -2,8 +2,17 @@
   'use strict';
   window.fee = window.fee || {};
 
+  $('.list-of-candidates').hide();
+  $('.create-a-campaign').hide();
+  $('.campaign-list').hide();
+  $('.create-a-candidate').show();
+
 
   $('.show-candidate-list').on('click', function showListofCandidates(e){
+    $('.list-of-candidates').show();
+    $('.create-a-campaign').hide();
+    $('.campaign-list').hide();
+    $('.create-a-candidate').hide();
     window.fee.getCandidateList();
   });
 
@@ -20,6 +29,14 @@
         );
     })
   };
+
+  $('.create-candidate').on('click', function createCampaignPage(){
+    $('.create-a-candidate').show();
+    $('.list-of-candidates').hide();
+    $('.create-a-campaign').hide();
+    $('.campaign-list').hide();
+
+  });
 
   $('.list-of-candidates ul')
     .on('click', 'li button', function deleteACandidate(e){
@@ -41,6 +58,10 @@
 
 
   $('.create-campaign').on('click', function createCampaign(){
+    $('.create-a-campaign').show();
+    $('.list-of-candidates').hide();
+    $('.campaign-list').hide();
+    $('.create-a-candidate').hide();
     window.fee.getCandidateList();
   });
 
