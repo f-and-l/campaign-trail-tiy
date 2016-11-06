@@ -61,21 +61,14 @@ function updateCandidate(candidateUpdate){
 }
 
 function candidatePost(candidateValues){
-  var candidateName = candidateValues.name;
-  var avatarURL = candidateValues.avatar;
-  var intell = candidateValues.intelligence;
-  var willPow =  candidateValues.willPow;
-  var charismaVal = candidateValues.charisma;
-
-  console.log(candidateName, avatarURL, willPow, charismaVal, intell);
   $.ajax({
     url: '/candidates',
     method: 'POST',
-    data: JSON.stringify({ name: candidateName,
-      image_url: avatarURL,
-      willpower: willPow,
-      charisma: charismaVal,
-      intelligence: intell
+    data: JSON.stringify({ name: candidateValues.name,
+      image_url: candidateValues.avatar,
+      willpower: candidateValues.willPo,
+      charisma: candidateValues.charisma,
+      intelligence: candidateValues.intelligence
       }),
     headers: {
       'Content-Type': 'application/json'
