@@ -30,11 +30,11 @@
 
  $('.list-of-candidates ul')
     .on('click', 'li .updateAtrCandidate', function updateCandidate(e) {
-      console.log('Hello!');
+      console.log(candidateUpdate);
     } );
 
 $('.update-attribute')
-      .on('submit', function updateAttrivute(e) {
+      .on('submit', function updateAttribute(e) {
         e.preventDefault();
         var candidateUpdate = {};
         candidateUpdate.name = $('#update-name').val();
