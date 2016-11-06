@@ -4,10 +4,14 @@ class Campaign < ActiveRecord::Base
   belongs_to :winner, class_name: "Candidate", foreign_key: :winner_id
   validates :start_date, presence: true
 
+  def randomizer
+    rand(0.7..1.8)
+  end
+
   def charisma_points_hash
     results_hash = {}
     self.candidates.each do |candidate|
-      results_hash[candidate.id] = candidate.charisma
+      results_hash[candidate.id] = candidate.charisma * randomizer
     end
     results_hash
   end
@@ -15,7 +19,7 @@ class Campaign < ActiveRecord::Base
   def intelligence_points_hash
     results_hash = {}
     self.candidates.each do |candidate|
-      results_hash[candidate.id] = candidate.intelligence
+      results_hash[candidate.id] = candidate.intelligence * randomizer
     end
     results_hash
   end
@@ -23,7 +27,7 @@ class Campaign < ActiveRecord::Base
   def willpower_points_hash
     results_hash = {}
     self.candidates.each do |candidate|
-      results_hash[candidate.id] = candidate.willpower
+      results_hash[candidate.id] = candidate.willpower * randomizer
     end
     results_hash
   end
