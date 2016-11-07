@@ -1,0 +1,19 @@
+.create-a-campaign {
+  margin: 0 auto;
+  width: 100%;
+  h2 {
+    text-align: center;
+  }
+  .campaignStart {
+    width: $campaignFormWidth;
+    margin: 0 auto;
+    text-align: center;
+    max-width: $campaignFormMaxWidth;
+    select {
+      margin: 0.5em 0;
+    }
+    input[type=submit] {
+      margin: 0.5em 0;
+    }
+  }
+}
