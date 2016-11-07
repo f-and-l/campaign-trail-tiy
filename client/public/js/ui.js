@@ -2,6 +2,7 @@
   'use strict';
   window.fee = window.fee || {};
 
+
   $('.list-of-candidates').hide();
   $('.create-a-campaign').hide();
   $('.campaign-list').hide();
@@ -148,14 +149,18 @@ $('.update-attribute')
   });
 
   function appendCampaignInfo(ids){
-    console.log(ids);
+    $('.campaign-list ul').children().remove()
+    window.fee.currentCandidates.forEach( function grabId(e){
     ids.forEach( function matchID(candidate){
-    console.log(candidate.winner_id);
-      if (candidate.winner_id === id) {
-        $('.create-a-campaign').append('<p>The winner is ' + candidate.name);
-      }
-  });
+      if (candidate.winner_id === e.id) {
+      $('.campaign-list ul').append('<li><p>' + e.name + ' won in a campaign on this date: ' + e.created_at + '</p></li>');
+     }
+
+  })
+});
   }
+
+
 
   window.fee.appendCampaignInfo = appendCampaignInfo;
   window.fee.appendWinnerInfo = appendWinnerInfo;

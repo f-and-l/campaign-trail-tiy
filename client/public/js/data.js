@@ -2,6 +2,7 @@
   'use strict';
   window.fee = window.fee || {};
 
+
 function getCandidateList(){
   $.ajax({
     url: '/candidates',
@@ -122,13 +123,13 @@ function getCampaignList(){
 
 
 
-
 window.fee.campaignPost = campaignPost;
 window.fee.getCandidateList = getCandidateList;
 window.fee.deleteCandidate = deleteCandidate;
 window.fee.candidatePost = candidatePost;
 window.fee.updateCandidate = updateCandidate;
 window.fee.getCampaignList = getCampaignList;
+
 
 
 }());
