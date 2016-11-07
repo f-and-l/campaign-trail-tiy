@@ -477,6 +477,14 @@ header::after {
     text-align: center;
     font-size: 3rem; }
 
+.campaign_list {
+  margin: 0 auto;
+  width: 90%; }
+  .campaign_list h2 {
+    text-align: center; }
+  .campaign_list ul {
+    list-style: none; }
+
 .list-of-candidates {
   margin: 0 auto;
   width: 80%; }
