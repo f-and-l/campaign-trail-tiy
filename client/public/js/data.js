@@ -113,7 +113,7 @@ function getCampaignList(){
     }
   })
   .done( function handleSuccess(data){
-    console.log(data);;
+    window.fee.appendCampaignInfo(data);
   })
   .fail( function handleError(xhr){
     console.log(xhr);

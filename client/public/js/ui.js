@@ -147,7 +147,17 @@ $('.update-attribute')
     window.fee.getCampaignList();
   });
 
+  function appendCampaignInfo(ids){
+    console.log(ids);
+    ids.forEach( function matchID(candidate){
+    console.log(candidate.winner_id);
+      if (candidate.winner_id === id) {
+        $('.create-a-campaign').append('<p>The winner is ' + candidate.name);
+      }
+  });
+  }
 
+  window.fee.appendCampaignInfo = appendCampaignInfo;
   window.fee.appendWinnerInfo = appendWinnerInfo;
   window.fee.createCampaignMenus =  createCampaignMenus;
   window.fee.buildCandidateList = buildCandidateList;
