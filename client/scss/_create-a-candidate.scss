@@ -1,17 +1,28 @@
 .create-a-candidate{
   border: 2px solid #000000;
   text-align: center;
-  width: 40%;
+  width: $candidateSectionWidth;
+  min-width: $candidateSectionMinWidth;
   margin: 0 auto;
+  margin-top: $candidateSectionMarginTop;
+  clear: both;
   h2 {
     font-size: 2em;
   }
   .createCandidate {
-    border: 2px solid #000000;
-    width: 40%;
+    border: 1px solid #000000;
+    width: $createFormWidth;
+    min-width: $createFormMinWidth;
     margin: 0 auto;
     text-align: left;
-    padding-left: 7em;
-    margin-bottom: 3em;
+    padding-left: $createFormPadLeft;
+    padding-top: $createFormPadTop;
+    padding-bottom: $createFormPadBot;
+    margin-bottom: $creatFormMargBot;
+
+    aside{
+      margin-top: $creatFormAsideMargTop;
+      margin-bottom: $createFormAsideMargBot;
+    }
   }
 }

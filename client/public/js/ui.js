@@ -134,7 +134,7 @@ $('.update-attribute')
     window.fee.currentCandidates.forEach( function matchID(candidate){
       console.log(id);
       if (candidate.id === id) {
-        $('.create-a-campaign').append('<p>The winner is ' + candidate.name);
+        $('.create-a-campaign').append('<p>The winner is ' + candidate.name + '!</p>');
       }
     })
   };
